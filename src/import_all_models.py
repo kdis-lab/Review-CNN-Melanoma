@@ -1,0 +1,14 @@
+from DenseNet121_model import DenseNet121_imagenet, DenseNet121_sinpesos, DenseNet121_transfer
+from DenseNet169_model import DenseNet169_imagenet, DenseNet169_sinpesos, DenseNet169_transfer
+from DenseNet201_model import DenseNet201_imagenet, DenseNet201_sinpesos, DenseNet201_transfer
+from InceptionResNetV2_model import InceptionResNetV2_imagenet, \
+	InceptionResNetV2_sinpesos, InceptionResNetV2_transfer
+from InceptionV3_model import InceptionV3_imagenet, InceptionV3_sinpesos, InceptionV3_transfer
+from MobileNet_model import MobileNet_imagenet, MobileNet_sinpesos, MobileNet_transfer
+from ResNet50_model import ResNet50_sinpesos, ResNet50_imagenet, ResNet50_transfer
+from VGG16_model import VGG16_imagenet, VGG16_sinpesos, VGG16_transfer
+from VGG19_model import VGG19_imagenet, VGG19_sinpesos, VGG19_transfer
+from Xception_model import Xception_imagenet, Xception_sinpesos, Xception_transfer
+from InceptionV4_model import InceptionV4_imagenet, InceptionV4_sinpesos, InceptionV4_transfer
+
+from NASNetMobile_model import NASNetMobile_imagenet, NASNetMobile_sinpesos, NASNetMobile_transfer

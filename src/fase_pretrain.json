@@ -1,0 +1,106 @@
+{
+  "gpu": 2,
+  "reportsDir": "/home/eperezp1990/images/multiple-evaluations",
+  "metric": "matthews_corrcoef",
+  "metric_mode": "max",
+  "epochs_pre": 50,
+  "epochs": 150,
+  "folds": 10,
+  "seed": 7,
+  "datasets": [
+	{
+      "name": "UDA-2",
+      "x": "../224x224/UDA-2_60_224x224_X.npy",
+      "y": "../224x224/UDA-2_60_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "MED-NODE",
+      "x": "../224x224/MED-NODE_170_224x224_X.npy",
+      "y": "../224x224/MED-NODE_170_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "PH2",
+      "x": "../224x224/PH2_200_224x224_X.npy",
+      "y": "../224x224/PH2_200_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "MSK-3",
+      "x": "../224x224/MSK-3_225_224x224_X.npy",
+      "y": "../224x224/MSK-3_225_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "UDA-1",
+      "x": "../224x224/UDA-1_557_224x224_X.npy",
+      "y": "../224x224/UDA-1_557_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "MSK-4",
+      "x": "../224x224/MSK-4_943_224x224_X.npy",
+      "y": "../224x224/MSK-4_943_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "MSK-1",
+      "x": "../224x224/MSK-1_1088_224x224_X.npy",
+      "y": "../224x224/MSK-1_1088_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "isbi2016",
+      "x": "../224x224/isbi2016_1273_224x224_X.npy",
+      "y": "../224x224/isbi2016_1273_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "MSK-2",
+      "x": "../224x224/MSK-2_1522_224x224_X.npy",
+      "y": "../224x224/MSK-2_1522_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "isbi2017",
+      "x": "../224x224/isbi2017_2745_224x224_X.npy",
+      "y": "../224x224/isbi2017_2745_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    },
+	{
+      "name": "HAM10000",
+      "x": "../224x224/HAM10000_7818_224x224_X.npy",
+      "y": "../224x224/HAM10000_7818_224x224_Y.npy",
+      "batch": [
+        8
+      ]
+    }
+  ],
+  "optimizers": [
+	"sgd"
+  ],
+  "class_weight": [
+    "no_weight"
+  ]
+}
