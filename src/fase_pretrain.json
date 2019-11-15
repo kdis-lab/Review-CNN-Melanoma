@@ -1,8 +1,8 @@
 {
   "gpu": 2,
   "reportsDir": "/home/eperezp1990/images/multiple-evaluations",
-  "metric": "matthews_corrcoef",
-  "metric_mode": "max",
+  "metric": "loss",
+  "metric_mode": "min",
   "epochs_pre": 50,
   "epochs": 150,
   "folds": 10,
