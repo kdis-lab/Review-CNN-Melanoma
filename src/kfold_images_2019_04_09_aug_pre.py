@@ -110,7 +110,7 @@ def one_fold(mapitems):
 
 	# test
 	# callbacks
-	X2_aug, Y2_aug, indices2 = image_aug_balance(X2,Y2,0)
+	X2_aug, Y2_aug, indices2 = image_aug_balance(X2,Y2,10)
 	print('test', X2.shape, 'aug', X2_aug.shape)
 	
 	train_model, base_model = model['model'](img_width, img_height, NUM_CLASSES, X, Y, optimizer)
