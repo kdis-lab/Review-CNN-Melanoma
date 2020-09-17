@@ -30,7 +30,7 @@ def InceptionV3_imagenet():
 	return {
 	    "model": model_imagenet,
 	    "name": "InceptionV3_imagenet",
-	    "shape": (224, 224, 3),
+	    "shape": (299, 299, 3),
 		"pretrained": True
 	}
 
@@ -57,7 +57,7 @@ def model_sinpesos(img_width,
 
 
 def InceptionV3_sinpesos():
-	return {"model": model_sinpesos, "name": "InceptionV3_sinpesos"}
+	return {"model": model_sinpesos, "name": "InceptionV3_sinpesos", "shape": (299, 299, 3)}
 
 
 def model_imagenet_transfer(img_width,
@@ -87,6 +87,6 @@ def InceptionV3_transfer():
 	return {
 	    "model": model_imagenet_transfer,
 	    "name": "InceptionV3_transfer",
-	    "shape": (224, 224, 3),
+	    "shape": (299, 299, 3),
 		"transfer": True
 	}
