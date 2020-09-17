@@ -17,6 +17,8 @@ from callback_measures_aug_avg import SingleLabelAugAvg, BinaryAugAvg
 from balance import image_aug_balance
 import sklearn
 
+from keras.applications.inception_v3 import preprocess_input
+
 
 def temp_file():
 	tempdir = '../tempdatafold'
@@ -233,7 +235,7 @@ def kfold(config_file, models):
 							numpy.random.seed(seed)
 
 							X = numpy.load(dataset['x'])
-							X = X.astype('float32') / 255
+							X = preprocess_input(X)
 							img_width = len(X[0][0])
 							img_height = len(X[0])
 							# transform image according with model
