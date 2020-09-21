@@ -10,88 +10,88 @@
   "datasets": [
 	{
       "name": "UDA-2",
-      "x": "../224x224/UDA-2_60_224x224_X.npy",
-      "y": "../224x224/UDA-2_60_224x224_Y.npy",
+      "x": "../data/UDA-2_60_X.npy",
+      "y": "../data/UDA-2_60_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "MED-NODE",
-      "x": "../224x224/MED-NODE_170_224x224_X.npy",
-      "y": "../224x224/MED-NODE_170_224x224_Y.npy",
+      "x": "../data/MED-NODE_170_X.npy",
+      "y": "../data/MED-NODE_170_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "PH2",
-      "x": "../224x224/PH2_200_224x224_X.npy",
-      "y": "../224x224/PH2_200_224x224_Y.npy",
+      "x": "../data/PH2_200_X.npy",
+      "y": "../data/PH2_200_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "MSK-3",
-      "x": "../224x224/MSK-3_225_224x224_X.npy",
-      "y": "../224x224/MSK-3_225_224x224_Y.npy",
+      "x": "../data/MSK-3_225_X.npy",
+      "y": "../data/MSK-3_225_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "UDA-1",
-      "x": "../224x224/UDA-1_557_224x224_X.npy",
-      "y": "../224x224/UDA-1_557_224x224_Y.npy",
+      "x": "../data/UDA-1_557_X.npy",
+      "y": "../data/UDA-1_557_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "MSK-4",
-      "x": "../224x224/MSK-4_943_224x224_X.npy",
-      "y": "../224x224/MSK-4_943_224x224_Y.npy",
+      "x": "../data/MSK-4_943_X.npy",
+      "y": "../data/MSK-4_943_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "MSK-1",
-      "x": "../224x224/MSK-1_1088_224x224_X.npy",
-      "y": "../224x224/MSK-1_1088_224x224_Y.npy",
+      "x": "../data/MSK-1_1088_X.npy",
+      "y": "../data/MSK-1_1088_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "isbi2016",
-      "x": "../224x224/isbi2016_1273_224x224_X.npy",
-      "y": "../224x224/isbi2016_1273_224x224_Y.npy",
+      "x": "../data/isbi2016_1273_X.npy",
+      "y": "../data/isbi2016_1273_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "MSK-2",
-      "x": "../224x224/MSK-2_1522_224x224_X.npy",
-      "y": "../224x224/MSK-2_1522_224x224_Y.npy",
+      "x": "../data/MSK-2_1522_X.npy",
+      "y": "../data/MSK-2_1522_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "isbi2017",
-      "x": "../224x224/isbi2017_2745_224x224_X.npy",
-      "y": "../224x224/isbi2017_2745_224x224_Y.npy",
+      "x": "../data/isbi2017_2745_X.npy",
+      "y": "../data/isbi2017_2745_Y.npy",
       "batch": [
         8
       ]
     },
 	{
       "name": "HAM10000",
-      "x": "../224x224/HAM10000_7818_224x224_X.npy",
-      "y": "../224x224/HAM10000_7818_224x224_Y.npy",
+      "x": "../data/HAM10000_7818_X.npy",
+      "y": "../data/HAM10000_7818_Y.npy",
       "batch": [
         8
       ]

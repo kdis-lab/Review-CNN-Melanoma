@@ -3,6 +3,10 @@ from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 import time
 
+from keras.applications.densenet import preprocess_input
+
+def process(x):
+	return preprocess_input(x)
 
 def model_imagenet(img_width, img_height, num_classes, x_all=None, y_all=None,
 				   optimizer=None):
@@ -24,7 +28,7 @@ def model_imagenet(img_width, img_height, num_classes, x_all=None, y_all=None,
 
 def DenseNet169_imagenet():
 	return {"model": model_imagenet, "name": "DenseNet169_imagenet", "shape": (224, 224, 3),
-			"pretrained": True}
+			"pretrained": True, "preprocessing": process}
 
 
 def model_sinpesos(img_width, img_height, num_classes, x_all=None, y_all=None,
@@ -46,7 +50,7 @@ def model_sinpesos(img_width, img_height, num_classes, x_all=None, y_all=None,
 
 
 def DenseNet169_sinpesos():
-	return {"model": model_sinpesos, "name": "DenseNet169_sinpesos"}
+	return {"model": model_sinpesos, "name": "DenseNet169_sinpesos", "preprocessing": process}
 
 
 def model_imagenet_transfer(img_width, img_height, num_classes, x_all=None, y_all=None,

@@ -28,13 +28,18 @@ def temp_file():
 	return tempfile
 
 def resize_images(x_resize, shape):
-	# before x_resize = x_resize.astype('float32') / 255
 	transform = []
 	for current_image in x_resize:
 		transform.append(resize(current_image, shape))
 	transform = numpy.asarray(transform)
 	return transform
-	
+
+def to_uint8(x):
+	if (x.dtype == "float64" or x.dtype == "float32") and x.max() <= 1.0:
+		dev = (x*255).astype(numpy.uint8)
+		return dev
+	return x
+
 def remove(data, indices, batch):
 	'''
 	2018-09-03
@@ -99,26 +104,20 @@ def one_fold(mapitems):
 	X,Y,indices = image_aug_balance(X,Y,0)
 	indices = sklearn.utils.shuffle(numpy.arange(Y.shape[0]))
 	X = X[indices]
+	X = to_uint8(X)
+	X = model["preprocessing"](X)
 	Y = Y[indices]
-	
-	# se eliminan instancias de la mayor clase para solucionar el bug de keras
-	# instancias de la clase mayoritaria							
-	nremove = remove(Y, [i for i in range(len(Y))], batch)
-	newtrain = [i for i in range(len(Y)) if i not in nremove]
-	X = X[newtrain]
-	Y = Y[newtrain]
 	
 	print('train', X.shape)
 
 	# test
 	# callbacks
 	X2_aug, Y2_aug, indices2 = image_aug_balance(X2,Y2,10)
+	X2_aug = to_uint8(X2_aug)
+	X2_aug = model["preprocessing"](X2_aug)
 	print('test', X2.shape, 'aug', X2_aug.shape)
 	
 	train_model, base_model = model['model'](img_width, img_height, NUM_CLASSES, X, Y, optimizer)
-	# emplea todas las gpu disponibles
-	from keras.utils import multi_gpu_model
-	parallel_model = multi_gpu_model(train_model, gpus=gpu) if gpu > 1 else train_model
 	
 	countbase = len(base_model.layers)
 	if 'transfer' in model:
@@ -130,29 +129,27 @@ def one_fold(mapitems):
 			# fine tune
 			for layer in train_model.layers[:countbase]:
 				layer.trainable = False
-			parallel_model.compile(optimizer=optimizer, loss='binary_crossentropy',
+			train_model.compile(optimizer=optimizer, loss='binary_crossentropy',
 					  metrics=['accuracy'])
 			callbacks = [
 				SingleLabelAugAvg(X2, Y2, X2_aug, Y2_aug, indices2), BinaryAugAvg(X2, Y2, X2_aug, Y2_aug, indices2),
 				SingleLabelAug(X2, Y2, X2_aug, Y2_aug), BinaryAug(X2, Y2, X2_aug, Y2_aug),
 				SingleLabel(X2, Y2), Binary(X2, Y2), AccumulativeTime(),
-				# it can be noted that a higher factor increase performance
+
 				ReduceLROnPlateau(monitor=metric, factor=0.2, mode=metric_mode, verbose=1),
 				EpochsRegister(join(dirpath, 'epochs.txt'),
 									join(dirpath, 'epochs-mean.txt'),
 									do_mean=False)
 			]
-			parallel_model.fit(X, Y, epochs=epochs_pre, batch_size=batch,
+			train_model.fit(X, Y, epochs=epochs_pre, batch_size=batch,
 						validation_data=(X2_aug, Y2_aug),
 						callbacks=callbacks,
 						verbose=2)
 			for layer in train_model.layers[:countbase]:
 				layer.trainable = True
 		
-	parallel_model.compile(optimizer=optimizer, loss='binary_crossentropy',
+	train_model.compile(optimizer=optimizer, loss='binary_crossentropy',
 						metrics=['accuracy'])
-
-
 	
 	callbacks = [
 		SingleLabelAugAvg(X2, Y2, X2_aug, Y2_aug, indices2), BinaryAugAvg(X2, Y2, X2_aug, Y2_aug, indices2),
@@ -160,9 +157,7 @@ def one_fold(mapitems):
 		SingleLabel(X2, Y2), Binary(X2, Y2), AccumulativeTime()
 	]
 	if optimizer == "sgd":
-		callbacks.append(
-			# it can be noted that a higher factor increase performance
-			ReduceLROnPlateau(monitor=metric, factor=0.2, mode=metric_mode, verbose=1))
+		callbacks.append(ReduceLROnPlateau(monitor=metric, factor=0.2, mode=metric_mode, verbose=1))
 	callbacks.append(EpochsRegister(join(dirpath, 'epochs.txt'),
 									join(dirpath, 'epochs-mean.txt'),
 									epoch_start=epochs_pre))
@@ -174,19 +169,18 @@ def one_fold(mapitems):
 
 	if type_class_weight == "weight":
 		print('>> class weight', class_data)
-		parallel_model.fit(X, Y, epochs=epochs, batch_size=batch,
+		train_model.fit(X, Y, epochs=epochs, batch_size=batch,
 						validation_data=(X2_aug, Y2_aug),
 						callbacks=callbacks,
 						verbose=2, class_weight=class_data)
 	else:
-		parallel_model.fit(X, Y, epochs=epochs, batch_size=batch,
+		train_model.fit(X, Y, epochs=epochs, batch_size=batch,
 						validation_data=(X2_aug, Y2_aug),
 						callbacks=callbacks,
 						verbose=2)
 
 
 def kfold(config_file, models):
-	# code
 	with open(config_file) as json_data:
 		configuration = json.load(json_data)
 
@@ -231,11 +225,9 @@ def kfold(config_file, models):
 							if not os.path.exists(dirpath):
 								os.makedirs(dirpath)
 
-							# fix random seed for reproducibility
 							numpy.random.seed(seed)
 
 							X = numpy.load(dataset['x'])
-							X = preprocess_input(X)
 							img_width = len(X[0][0])
 							img_height = len(X[0])
 							# transform image according with model
@@ -296,14 +288,14 @@ def kfold(config_file, models):
 
 							final_evaluations = numpy.genfromtxt(join(dirpath, 'epochs-mean.txt'), delimiter=',',
 																 dtype=numpy.float64, names=True)
-							# evaluaciones de una metrica
+
 							metric_column = final_evaluations[metric]
-							# el indice de la fila donde esta la mejor metrica
+
 							row = metric_column.argmax() if metric_mode == 'max' else metric_column.argmin()
 
 							evaluation = final_evaluations[row]
 							summary = open(join(dirpath, 'summary.txt'), mode='w')
-							# leer las keys, las metricas
+
 							summary.write(','.join(final_evaluations.dtype.names))
 							summary.write('\n')
 							summary.write(','.join(map(str, evaluation)))

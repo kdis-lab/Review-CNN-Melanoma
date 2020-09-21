@@ -101,10 +101,8 @@ class EpochsRegister(Callback):
 
 		num_epochs, num_evaluations = self.report_dimensions(self.filepath)
 
-		# capas(folds), filas(epochs), columnas(metricas)
 		alldata = numpy.reshape(alldata, newshape=(num_evaluations, num_epochs, 1 + len(self.keys)))
 
-		# promedia las capas, obteniendo una matrix de fila columna con el promedio
 		mean = numpy.nanmean(alldata, axis=0)
 
 		filemean = open(self.filepathmean, mode="w+")
