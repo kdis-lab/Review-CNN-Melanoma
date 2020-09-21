@@ -21,7 +21,7 @@ def model_imagenet(img_width, img_height, num_classes, x_all=None, y_all=None,
 
 
 def Xception_imagenet(optimizer=None):
-	return {"model": model_imagenet, "name": "Xception_imagenet", "shape": (224, 224, 3),
+	return {"model": model_imagenet, "name": "Xception_imagenet", "shape": (299, 299, 3),
 			"pretrained": True, "optimizer": optimizer}
 
 
@@ -64,5 +64,5 @@ def model_imagenet_transfer(img_width, img_height, num_classes, x_all=None, y_al
 
 
 def Xception_transfer(optimizer=None):
-	return {"model": model_imagenet_transfer, "name": "Xception_transfer", "shape": (224, 224, 3),
+	return {"model": model_imagenet_transfer, "name": "Xception_transfer", "shape": (299, 299, 3),
 			"transfer": True, "optimizer": optimizer}
