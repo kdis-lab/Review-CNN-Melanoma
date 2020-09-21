@@ -1,5 +1,3 @@
-# 2019 02 16
-
 import numpy
 
 from keras.preprocessing.image import ImageDataGenerator
@@ -47,8 +45,7 @@ def images_augmentation(x, y, limit, imagedatagenerator=None):
 	return numpy.asarray(x_dev), numpy.asarray(y_dev)
 
 def image_aug_balance(x,y,factor):
-	# if factor = 0 , solo balancea
-	# class 0 y 1
+	# if factor = 0 , just perform balance
 
 	class0 = numpy.argwhere(y==0).flatten()
 	class1 = numpy.argwhere(y==1).flatten()

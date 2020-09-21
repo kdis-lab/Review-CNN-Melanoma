@@ -2,6 +2,10 @@ from keras.applications.nasnet import NASNetMobile
 from keras.layers import GlobalAveragePooling2D, Dense
 from keras.models import Model
 
+from keras.applications.nasnet import preprocess_input
+
+def process(x):
+	return preprocess_input(x)
 
 def model_imagenet(img_width, img_height, num_classes, x_all=None, y_all=None,
 				   optimizer=None):
@@ -21,13 +25,8 @@ def model_imagenet(img_width, img_height, num_classes, x_all=None, y_all=None,
 
 def NASNetMobile_imagenet():
 	return {"model": model_imagenet, "name": "NASNetMobile_imagenet", "shape": (224, 224, 3),
-		   "pretrained": True}
-
-def NASNetMobile_transfer():
-	return {"model": model_imagenet, "name": "NASNetMobile_transfer", "shape": (224, 224, 3), 
-			"transfer": True}
-
-		   
+		   "pretrained": True, "preprocessing": process}
+	   
 def model_sinpesos(img_width, img_height, num_classes, x_all=None, y_all=None,
 				   optimizer=None):
 	base_model = NASNetMobile(input_shape=(img_height, img_width, 3),
@@ -45,6 +44,6 @@ def model_sinpesos(img_width, img_height, num_classes, x_all=None, y_all=None,
 	return model, base_model
 
 def NASNetMobile_sinpesos():
-	return {"model": model_sinpesos, "name": "NASNetMobile_sinpesos", "shape": (224, 224, 3)}
+	return {"model": model_sinpesos, "name": "NASNetMobile_sinpesos", "shape": (224, 224, 3), "preprocessing": process}
 
 
