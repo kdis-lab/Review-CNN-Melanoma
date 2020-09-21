@@ -115,6 +115,9 @@ def one_fold(mapitems):
 	X2_aug, Y2_aug, indices2 = image_aug_balance(X2,Y2,10)
 	X2_aug = to_uint8(X2_aug)
 	X2_aug = model["preprocessing"](X2_aug)
+	X2 = to_uint8(X2)
+	X2 = model["preprocessing"](X2)
+	
 	print('test', X2.shape, 'aug', X2_aug.shape)
 	
 	train_model, base_model = model['model'](img_width, img_height, NUM_CLASSES, X, Y, optimizer)
